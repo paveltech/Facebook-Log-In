@@ -1,13 +1,6 @@
 package com.dream.facebook;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,59 +10,49 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class CustomFacebokLogInActivity extends AppCompatActivity {
 
-    private LoginButton facebookLoginButton;
+
+    private LoginButton loginButton;
     private CallbackManager callbackManager;
     ImageView imageView;
-    Button button;
-    Button logOut;
+    Button fb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        setContentView(R.layout.activity_custom_facebok_log_in);
         callbackManager = CallbackManager.Factory.create();
-        facebookLoginButton = (LoginButton) findViewById(R.id.loginButton);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        button = (Button) findViewById(R.id.button2);
-        logOut = (Button) findViewById(R.id.logOutButton);
+        //The original Facebook button
+        final LoginButton loginButton = (LoginButton)findViewById(R.id.login_button);
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+//Our custom Facebook button
+        fb = (Button) findViewById(R.id.fb);
+
+
+        fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logOut();
+                loginButton.performClick();
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //LoginManager.getInstance().logOut();
-                facebookLoginButton.performClick();
-            }
-        });
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 
-        facebookLoginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-
-        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 GraphRequest request = GraphRequest.newMeRequest(
@@ -103,6 +86,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void onClickFacebookButton(View view) {
+        if (view == fb) {
+            loginButton.performClick();
+        }
+
+    }
+
     private void setProfileToView(JSONObject jsonObject) {
         try {
             Log.d("FACEBOOK" , "PROFILE"+jsonObject.toString());
@@ -121,11 +111,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("CODE" , ""+requestCode);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 
 }

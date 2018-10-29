@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomFacebokLogInActivity">
 
 
     <FrameLayout
@@ -21,12 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/fb"
-            android:onClick="onClickFacebookButton"
             android:textAllCaps="false"
             android:text="Sign up with Facebook"
             android:textSize="22sp"
             android:textColor="#ffffff" />
     </FrameLayout>
-
-
 </android.support.constraint.ConstraintLayout>
