@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton facebookLoginButton;
     private CallbackManager callbackManager;
     ImageView imageView;
-    Button button;
+    Button buttonButton;
     Button logOut;
 
     @Override
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
         facebookLoginButton = (LoginButton) findViewById(R.id.loginButton);
         imageView = (ImageView) findViewById(R.id.imageView);
-        button = (Button) findViewById(R.id.button2);
+        buttonButton = (Button) findViewById(R.id.button2);
         logOut = (Button) findViewById(R.id.logOutButton);
 
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //LoginManager.getInstance().logOut();
